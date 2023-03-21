@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
             navigation.push('Details', {slug}); 
         };
     const handleSearch = () => {
-        const apiKey = '5255b41eb2b14db08d004643890cba07';
+        const apiKey = '616814465e4f4cd8b8ae7e8c0fdb0265';
         const url = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURI(searchText)}`;
         fetch(url)
         .then( response => response.json() )
@@ -25,7 +25,6 @@ const Home = ({navigation}) => {
     };
     
     return (
-
         <View style={style.page}>
             <View style={style.searchBar}>
                 <TextInput style={style.searchInput} onChangeText={setSearchText} value={searchText}></TextInput>
@@ -41,6 +40,7 @@ const Home = ({navigation}) => {
                 </Pressable>
                 )} keyExtractor={(item) => item.id}>
             </FlatList>
+            <Button title="Mes jeux" onPress={ () => { navigation.push('Bookmarks') } }></Button>
         </View>
     );
 };
