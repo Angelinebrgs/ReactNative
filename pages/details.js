@@ -33,7 +33,6 @@ export default Details = ({navigation, route}) => {
     const handlePressRemove = () => {
         dispatch({
             type: 'game/removeGame', payload: game.id,
-            
         });
     }
 

@@ -1,8 +1,10 @@
 import React from"react";
-import { Button,Text, FlatList, TextInput, View, Image, Pressable} from"react-native";
+import { Button,Text, FlatList, TextInput, View, Image, Pressable, Icon} from"react-native";
 import {useState} from "react";
+import { useDispatch, useSelector } from"react-redux";
 
 const Home = ({navigation}) => {
+    const bookmarks = useSelector( (state) => state.games )
     const [searchText, setSearchText] = useState("Valorant");
     const [games, setGames] = useState([
         { id:1, name:"Jeux 1", rating:4.6 },
@@ -23,6 +25,15 @@ const Home = ({navigation}) => {
         .then( data => { setGames(data.results) } )
         .catch( () => { alert('Une erreur est survenue') } )
     };
+
+    const isBookmarked = () => {bookmarks.find( bookmark => bookmark.id == games.id )!== undefined; {
+            if (isBookmarked(games) == true) {
+                return 'star';
+            } else {
+                return 'star-o';
+            }
+        }
+    };
     
     return (
         <View style={style.page}>
@@ -32,6 +43,7 @@ const Home = ({navigation}) => {
             </View>
             <FlatList style={style.list} data={games} renderItem={ ({item}) => (
                 <Pressable onPress={ () => { handleClick(item.slug) } }>
+                        <Icon name={isBookmarked() ? 'star' : 'star-o'} size={20} color={isBookmarked() ? 'gold' : 'gray'} />
                     <View style={style.listItem}>
                         <Image source={{uri:item.background_image}} style={style.listImage}></Image>
                         <Text>{item.name}</Text>    
